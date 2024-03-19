@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gujarati OCR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .below {
+            margin-top: 30vh;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            display: inline;
+            width: 90vw;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .progress-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #progress-bar {
+            display: none;
+            width: 50%;
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+
+        #progress {
+            width: 0;
+            height: 30px;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: width 30s linear;
+        }
+
+        #file-info {
+            margin-top: 10px;
+        }
+
+        .library-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h1>Gujrati OCR</h1>
+            <button id="library-btn" class="library-btn">Library</button>
+        </div>
+        <div class="below">
+            <h2>Upload a PDF File</h2>
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" accept=".pdf" required>
+                <label for="file">Choose File</label>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <div class="progress-div">
+            <div id="progress-bar"> 
+                <div id="progress"></div>
+            </div>
+        </div>
+        <div id="file-info"></div>
+    </div>
+
+    <script>
+        document.getElementById('file').addEventListener('change', function() {
+            var fileInfo = document.getElementById('file-info');
+            fileInfo.innerHTML = 'Selected file: ' + this.files[0].name;
+        });
+
+        document.getElementById('upload-form').addEventListener('submit', function() {
+            document.getElementById('progress-bar').style.display = 'flex';
+            animateProgressBar();
+        });
+
+        document.getElementById('library-btn').addEventListener('click', function() {
+            window.location.href = '/library';
+        });
+
+        function animateProgressBar() {
+            var progressBar = document.getElementById('progress');
+            var width = 0;
+            var interval = setInterval(frame, 375);
+
+            function frame() {
+                if (width >= 80) {
+                    clearInterval(interval);
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

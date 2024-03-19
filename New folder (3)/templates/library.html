@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .file-name {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+        }
+
+        .btn {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        .btn.btn-download {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Library</h1>
+    <div class="file-list">
+        {% for file in files %}
+            <div class="file-item">
+                <div class="file-name">{{ file.filename }}</div>
+                <div class="btn-container">
+                    <a href="/download/{{ file.filename }}" class="btn btn-download" download>Download</a>
+                    <a href="/view/{{ file.filename }}" class="btn btn-view" target="_blank">View</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
